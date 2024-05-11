@@ -5,8 +5,8 @@ from sys import exit
 pygame.init()
 
 # Create screen
-screen_width = 1200
-screen_height = 600
+screen_width = 600
+screen_height = 900
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Gravity')
 
@@ -16,7 +16,7 @@ colors = ('red', 'orange', 'yellow', 'green', 'blue', 'purple')
 
 # Frame rate
 clock = pygame.time.Clock()
-x = 0
+current_x = 0
 color = 1
 
 # Wave characteristics
@@ -27,15 +27,13 @@ def wave(x):
     y = -amplitude * math.sin(period * x) + vertical_shift
     return y
 
-# Quadratic characteristics
-
 # Game loop
 while True:
     #Add surfaces
-    if x < screen_width:
-        x += 1
+    if current_x < screen_width:
+        current_x += 1
         pixel.fill(colors[color-1])
-        screen.blit(pixel, (x, wave(x)))
+        screen.blit(pixel, (current_x, wave(current_x)))
         if color < len(colors):
             color += 1
         else:
