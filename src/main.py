@@ -19,10 +19,10 @@ ground_surface = pygame.image.load('graphics/ground.png').convert()
 text_surface = text_font.render('My Game', True, 'black')
 
 snail_surface = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-snail_rect = snail_surface.get_rect(bottomleft = (600, 300))
+snail_rect = snail_surface.get_rect(bottomleft=(600, 300))
 
 player_surface = pygame.image.load('graphics/Player/player_walk_1.png')
-player_rect = player_surface.get_rect(bottomleft = (80,300))
+player_rect = player_surface.get_rect(bottomleft=(80, 300))
 
 # Frame rate
 clock = pygame.time.Clock()
@@ -42,11 +42,8 @@ while True:
     screen.blit(snail_surface, snail_rect)
     screen.blit(player_surface, player_rect)
 
-    player_rect.x += 1
-
-    snail_rect.x -= 4
-    if snail_rect.right < 0: snail_rect.left = screen_width
-
+    if player_rect.colliderect(snail_rect):
+        print('collision')
 
     # Update screen
     pygame.display.update()
