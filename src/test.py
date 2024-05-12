@@ -1,4 +1,4 @@
-import pygame
+import pygame, math
 from sys import exit
 
 # Initiate pygame
@@ -27,6 +27,7 @@ player_rect = player_surface.get_rect(bottomleft=(80, 300))
 snail_speed = 2
 player_speed = 2
 
+angle = math.atan((screen_height/2)/(screen_width/2))
 # Frame rate
 clock = pygame.time.Clock()
 
@@ -59,11 +60,15 @@ while True:
     screen.blit(snail_surface, snail_rect)
     screen.blit(player_surface, player_rect)
 
-    pygame.draw.circle(screen, '#AA0000', (screen_width/2, screen_height/2), 40)
-    pygame.draw.line(screen, 'black', (0,0), (screen_width,screen_height), 4)
-    pygame.draw.line(screen, 'black', (screen_width,0), (0,screen_height), 4)
-    pygame.draw.ellipse(screen, '#0000BB', pygame.Rect(screen_width/2-50,screen_height/2-20, 100, 40))
-    pygame.draw.ellipse(screen, '#FFFF00', pygame.Rect(screen_width/2-20,screen_height/2-50, 40, 100))
+    pygame.draw.circle(screen, '#AA0000', (screen_width/2, screen_height/2), 40, 5)
+
+    pygame.draw.line(screen, 'black', (0,0), (screen_width/2-40*math.cos(angle), screen_height/2-40*math.sin(angle)), 5)
+    pygame.draw.line(screen, 'black', (screen_width/2+40*math.cos(angle), screen_height/2+40*math.sin(angle)), (screen_width, screen_height), 5)
+    pygame.draw.line(screen, 'black', (screen_width,0), (screen_width/2+40*math.cos(angle), screen_height/2-40*math.sin(angle)), 5)
+    pygame.draw.line(screen, 'black', (screen_width/2-40*math.cos(angle), screen_height/2+40*math.sin(angle)), (0,screen_height), 5)
+
+    pygame.draw.ellipse(screen, '#0000BB', pygame.Rect(screen_width/2-50,screen_height/2-20, 100, 40), 5)
+    pygame.draw.ellipse(screen, '#FFFF00', pygame.Rect(screen_width/2-20,screen_height/2-50, 40, 100), 5)
 
     if snail_rect.colliderect(player_rect) or snail_rect.left <= 0 or snail_rect.right >= screen_width:
         print('snail collision')
