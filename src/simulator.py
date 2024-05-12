@@ -62,4 +62,3 @@ while True:
     moon_rect.centery += vertical_speed
     pygame.display.update()
     clock.tick(60)
-
