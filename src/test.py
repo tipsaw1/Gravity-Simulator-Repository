@@ -8,7 +8,7 @@ pygame.init()
 screen_width = 800
 screen_height = 400
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Gravity')
+pygame.display.set_caption('test')
 
 # Extra variables
 text_font = pygame.font.Font('fonts/Argentina free promo.ttf', 50)
