@@ -18,7 +18,7 @@ G = 5.75827338*(10**-14)
 # Objects
 earth = pygame.Surface((11, 11))
 earth.fill('blue')
-earth_rect = earth.get_rect(center=((screen_width / 2)-331, screen_height / 2))
+earth_rect = earth.get_rect(center=((screen_width / 2), screen_height / 2))
 earth_mass = 5.15568345*(10**21)
 
 moon = pygame.Surface((3, 3))
@@ -28,7 +28,7 @@ moon_mass = 6.3433149*(10**19)
 
 # clock
 clock = pygame.time.Clock()
-speeds = []
+#speeds = []
 largest_distance = 0
 x_distance = earth_rect.centerx - moon_rect.centerx
 y_distance = earth_rect.centery - moon_rect.centery
@@ -40,7 +40,7 @@ while True:
     x_distance = earth_rect.centerx - moon_rect.centerx
     y_distance = earth_rect.centery - moon_rect.centery
     distance = math.sqrt(x_distance ** 2 + y_distance ** 2)
-    speeds.append(distance)
+    # speeds.append(distance)
     if distance != 0:
         horizontal_speed += (x_distance/distance)
         vertical_speed += (y_distance/distance)
@@ -55,12 +55,11 @@ while True:
             pygame.quit()
             exit()
 
-    screen.blit(background, (0,0))
+    #.blit(background, (0,0))
     screen.blit(earth, earth_rect)
     screen.blit(moon, moon_rect)
-    earth_rect.centerx -= horizontal_speed
-    earth_rect.centery -= vertical_speed
-    print(distance)
+    moon_rect.centerx += horizontal_speed
+    moon_rect.centery += vertical_speed
     pygame.display.update()
     clock.tick(60)
 
