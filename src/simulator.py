@@ -24,7 +24,7 @@ earth_mass = 5.15568345*(10**21)
 
 moon = pygame.Surface((3, 3))
 moon.fill('white')
-moon_rect = moon.get_rect(center = (earth_rect.centerx+331, earth_rect.centery))
+moon_rect = moon.get_rect(center = (earth_rect.centerx-50, earth_rect.centery))
 moon_mass = 6.3433149*(10**19)
 
 # clock
@@ -34,21 +34,39 @@ largest_distance = 0
 x_distance = earth_rect.centerx - moon_rect.centerx
 y_distance = earth_rect.centery - moon_rect.centery
 distance = math.sqrt(x_distance ** 2 + y_distance ** 2)
-horizontal_speed = 0
+horizontal_speed = 10
 vertical_speed = 20
 # Screen loop
 while True:
-    x_distance = earth_rect.centerx - moon_rect.centerx
-    y_distance = earth_rect.centery - moon_rect.centery
-    distance = math.sqrt(x_distance ** 2 + y_distance ** 2)
+    x_distance = moon_rect.centerx - earth_rect.centerx
+    y_distance = moon_rect.centery - earth_rect.centery
+    if x_distance != 0:
+        angle = math.atan(abs(y_distance/x_distance))
+    else:
+        angle = math.pi/2
+    if x_distance >= 0 and y_distance >= 0:
+        horizontal_speed += -math.cos(angle)
+        vertical_speed += -math.sin(angle)
+    elif x_distance <= 0 and y_distance >= 0:
+        horizontal_speed += math.cos(angle)
+        vertical_speed += -math.sin(angle)
+    elif x_distance <= 0 and y_distance <= 0:
+        horizontal_speed += math.cos(angle)
+        vertical_speed += math.sin(angle)
+    elif x_distance >= 0 and y_distance <= 0:
+        horizontal_speed += -math.cos(angle)
+        vertical_speed += math.sin(angle)
+
+
+
+
     # speeds.append(distance)
-    if distance != 0:
-        horizontal_speed += (x_distance/distance)
-        vertical_speed += (y_distance/distance)
 
     # Quit
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            print(angle*180/math.pi)
+            print(horizontal_speed, vertical_speed)
         #    for d in speeds:
         #        if d >= largest_distance:
         #            largest_distance = d
